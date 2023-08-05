@@ -9,6 +9,7 @@ let firstNumber, secondNumber, currentOperator = null, previousOperator = null, 
 let number = []
 let n = 0
 let addPrefix = false
+let noprefix
 
 numbers.forEach((i) => {
     i.addEventListener('mousedown',inputNumber)
@@ -26,12 +27,12 @@ prefix.addEventListener('mousedown',changePrefix)
 
 function changePrefix() {
     if (addPrefix == false && number.length !== 0) {
-        number.splice(0,0,'-')
-        result.textContent = number.join('')
+        result.textContent = '-'+result.textContent
         addPrefix = true
     } else if (addPrefix == true && number.length !== 0) {
-        number.shift()
-        result.textContent = number.join('')
+        noprefix = Array.from(result.textContent)
+        noprefix.shift()
+        result.textContent = noprefix.join('')
         addPrefix = false
     }
 }
@@ -44,6 +45,7 @@ function clear() {
     previousNumber = null
     firstNumber = null
     secondNumber = null
+    addPrefix = false
 }
 
 function inputNumber(e) {
@@ -57,8 +59,6 @@ function inputNumber(e) {
         if (number.length == 0) {
             number.push('0')
         }
-        
-        
     }
 
     number.push(e.target.textContent)
@@ -87,8 +87,6 @@ function operatorClicked(e) {
 }
 
 function evaluate(operator) {
-    
-
     if (previousOperator == '=') {
         return
     }

@@ -1,3 +1,11 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .calculator {
     height: max-content;
     width: 400px;
@@ -133,7 +141,7 @@
     height: 100%;
     overflow: scroll;
     display: flex;
-    direction: rtl;
+    flex-direction: row-reverse;
     align-items: flex-end;
     font-size: 70px;
     font-family: monospace;
