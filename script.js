@@ -36,6 +36,8 @@ document.addEventListener('keydown',(e) => {
         buttonToClick.click()
     } else if (e.key == 'Enter') {
         equals.click()
+    } else if (e.key == '.') {
+        addDecimal()
     }
 })
 
@@ -62,21 +64,28 @@ function clear() {
     addPrefix = false
 }
 
+function addDecimal() {
+    if (number.includes('.')) {
+        return
+    }
+    if (number.length == 0) {
+        number.push('0')
+    }
+    number.push('.')
+    result.textContent = number.join('')
+}
+
 function inputNumber(e) {
     if ((e.target.textContent == '0' && result.textContent == '0') || number.length >= 10) {
         return
     }
-    if (e.target.textContent == '.') {
-        if (number.includes('.')) {
-            return
-        }
-        if (number.length == 0) {
-            number.push('0')
-        }
-    }
 
-    number.push(e.target.textContent)
-    result.textContent = number.join('')
+    if (e.target.textContent == '.') {
+        addDecimal()
+    } else {
+        number.push(e.target.textContent)
+        result.textContent = number.join('')
+    }
 }
 
 function operatorClicked(e) {
