@@ -4,6 +4,7 @@ const equals = document.querySelector('.equals')
 const result = document.querySelector('.result')
 const ac = document.querySelector('.ac')
 const prefix = document.querySelector('.prefix')
+const operatorList = ['+','-','/','*','=']
 
 let firstNumber, secondNumber, currentOperator = null, previousOperator = null, previousNumber = null
 let number = []
@@ -16,14 +17,27 @@ numbers.forEach((i) => {
 })
 
 operators.forEach((i) => {
-    i.addEventListener('mousedown',operatorClicked)
+    i.addEventListener('click',operatorClicked)
 })
 
-equals.addEventListener('mousedown',() => evaluate(currentOperator))
+equals.addEventListener('click',() => evaluate(currentOperator))
 
 ac.addEventListener('mousedown',clear)
 
 prefix.addEventListener('mousedown',changePrefix)
+
+document.addEventListener('keydown',(e) => {
+    e.preventDefault()
+    if (e.key < 10) {
+        number.push(e.key)
+        result.textContent = number.join('')
+    } else if (operatorList.includes(e.key)) {
+        let buttonToClick = document.querySelector(`[data-operator='${e.key}']`)
+        buttonToClick.click()
+    } else if (e.key == 'Enter') {
+        equals.click()
+    }
+})
 
 function changePrefix() {
     if (addPrefix == false && number.length !== 0) {
